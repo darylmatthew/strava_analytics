@@ -70,6 +70,7 @@ Looking at the dataset; I started the cleaning process by first, removing unimpo
 
 ```sql
 ALTER TABLE activities
+DROP COLUMN name,
 DROP COLUMN resource_state,
 DROP COLUMN sport_type,
 DROP COLUMN workout_type,
@@ -109,7 +110,6 @@ DROP COLUMN `map.resource_state`;
 This is what the dataset looks like now:
 | Column                        | Dtype     |
 |-------------------------------|-----------|
-| name                          | object    |
 | distance                      | float64   |
 | moving_time                   | int64     |
 | elapsed_time                  | int64     |
