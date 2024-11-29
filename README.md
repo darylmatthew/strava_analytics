@@ -11,55 +11,118 @@ Project Goals:
 Data collected from the offical Strava API, using my own account's physical activity data.
 
 Thes are the initial columns and their respective data types:
-| #  | Column                        | Dtype     |
-|----|-------------------------------|-----------|
-| 0  | resource_state                | int64     |
-| 1  | name                          | object    |
-| 2  | distance                      | float64   |
-| 3  | moving_time                   | int64     |
-| 4  | elapsed_time                  | int64     |
-| 5  | total_elevation_gain          | float64   |
-| 6  | type                          | object    |
-| 7  | sport_type                    | object    |
-| 8  | workout_type                  | float64   |
-| 9  | id                            | int64     |
-| 10 | start_date                    | object    |
-| 11 | start_date_local              | object    |
-| 12 | timezone                      | object    |
-| 13 | utc_offset                    | float64   |
-| 14 | location_city                 | float64   |
-| 15 | location_state                | float64   |
-| 16 | location_country              | float64   |
-| 17 | achievement_count             | int64     |
-| 18 | kudos_count                   | int64     |
-| 19 | comment_count                 | int64     |
-| 20 | athlete_count                 | int64     |
-| 21 | photo_count                   | int64     |
-| 22 | trainer                       | bool      |
-| 23 | commute                       | bool      |
-| 24 | manual                        | bool      |
-| 25 | private                       | bool      |
-| 26 | visibility                    | object    |
-| 27 | flagged                       | bool      |
-| 28 | gear_id                       | object    |
-| 29 | start_latlng                  | object    |
-| 30 | end_latlng                    | object    |
-| 31 | average_speed                 | float64   |
-| 32 | max_speed                     | float64   |
-| 33 | has_heartrate                 | bool      |
-| 34 | heartrate_opt_out             | bool      |
-| 35 | display_hide_heartrate_option | bool      |
-| 36 | elev_high                     | float64   |
-| 37 | elev_low                      | float64   |
-| 38 | upload_id                     | int64     |
-| 39 | upload_id_str                 | int64     |
-| 40 | external_id                   | object    |
-| 41 | from_accepted_tag             | bool      |
-| 42 | pr_count                      | int64     |
-| 43 | total_photo_count             | int64     |
-| 44 | has_kudoed                    | bool      |
-| 45 | athlete.id                    | int64     |
-| 46 | athlete.resource_state        | int64     |
-| 47 | map.id                        | object    |
-| 48 | map.summary_polyline          | object    |
-| 49 | map.resource_state            | int64     |
+| Column                        | Dtype     |
+|-------------------------------|-----------|
+| resource_state                | int64     |
+| name                          | object    |
+| distance                      | float64   |
+| moving_time                   | int64     |
+| elapsed_time                  | int64     |
+| total_elevation_gain          | float64   |
+| type                          | object    |
+| sport_type                    | object    |
+| workout_type                  | float64   |
+| id                            | int64     |
+| start_date                    | object    |
+| start_date_local              | object    |
+| timezone                      | object    |
+| utc_offset                    | float64   |
+| location_city                 | float64   |
+| location_state                | float64   |
+| location_country              | float64   |
+| achievement_count             | int64     |
+| kudos_count                   | int64     |
+| comment_count                 | int64     |
+| athlete_count                 | int64     |
+| photo_count                   | int64     |
+| trainer                       | bool      |
+| commute                       | bool      |
+| manual                        | bool      |
+| private                       | bool      |
+| visibility                    | object    |
+| flagged                       | bool      |
+| gear_id                       | object    |
+| start_latlng                  | object    |
+| end_latlng                    | object    |
+| average_speed                 | float64   |
+| max_speed                     | float64   |
+| has_heartrate                 | bool      |
+| heartrate_opt_out             | bool      |
+| display_hide_heartrate_option | bool      |
+| elev_high                     | float64   |
+| elev_low                      | float64   |
+| upload_id                     | int64     |
+| upload_id_str                 | int64     |
+| external_id                   | object    |
+| from_accepted_tag             | bool      |
+| pr_count                      | int64     |
+| total_photo_count             | int64     |
+| has_kudoed                    | bool      |
+| athlete.id                    | int64     |
+| athlete.resource_state        | int64     |
+| map.id                        | object    |
+| map.summary_polyline          | object    |
+| map.resource_state            | int64     |
+
+
+## Data Cleaning:
+Looking at the dataset; I started the cleaning process by first, removing unimportant columns that were irrelevant to my analyses.
+
+```sql
+ALTER TABLE activities
+DROP COLUMN resource_state,
+DROP COLUMN sport_type,
+DROP COLUMN workout_type,
+DROP COLUMN id,
+DROP COLUMN timezone,
+DROP COLUMN location_city,
+DROP COLUMN location_state,
+DROP COLUMN location_country,
+DROP COLUMN kudos_count,
+DROP COLUMN comment_count,
+DROP COLUMN athlete_count,
+DROP COLUMN photo_count,
+DROP COLUMN trainer,
+DROP COLUMN commute,
+DROP COLUMN manual,
+DROP COLUMN private,
+DROP COLUMN visibility,
+DROP COLUMN flagged,
+DROP COLUMN gear_id,
+DROP COLUMN start_latlng,
+DROP COLUMN end_latlng,
+DROP COLUMN has_heartrate,
+DROP COLUMN heartrate_opt_out,
+DROP COLUMN display_hide_heartrate_option,
+DROP COLUMN upload_id,
+DROP COLUMN upload_id_str,
+DROP COLUMN external_id,
+DROP COLUMN from_accepted_tag,
+DROP COLUMN total_photo_count,
+DROP COLUMN has_kudoed,
+DROP COLUMN `athlete.id`,
+DROP COLUMN `athlete.resource_state`,
+DROP COLUMN `map.id`,
+DROP COLUMN `map.summary_polyline`,
+DROP COLUMN `map.resource_state`;
+```
+This is what the dataset looks like now:
+| Column                        | Dtype     |
+|-------------------------------|-----------|
+| name                          | object    |
+| distance                      | float64   |
+| moving_time                   | int64     |
+| elapsed_time                  | int64     |
+| total_elevation_gain          | float64   |
+| type                          | object    |
+| start_date                    | object    |
+| start_date_local              | object    |
+| utc_offset                    | float64   |
+| achievement_count             | int64     |
+| average_speed                 | float64   |
+| max_speed                     | float64   |
+| elev_high                     | float64   |
+| elev_low                      | float64   |
+| pr_count                      | int64     |
+
+
