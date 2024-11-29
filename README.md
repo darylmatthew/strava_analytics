@@ -106,7 +106,8 @@ DROP COLUMN `athlete.id`,
 DROP COLUMN `athlete.resource_state`,
 DROP COLUMN `map.id`,
 DROP COLUMN `map.summary_polyline`,
-DROP COLUMN `map.resource_state`;
+DROP COLUMN `map.resource_state`,
+DROP COLUMN start_date_local;
 ```
 This is what the dataset looks like now:
 | Column                        | Dtype     |
@@ -117,8 +118,6 @@ This is what the dataset looks like now:
 | total_elevation_gain          | float64   |
 | type                          | object    |
 | start_date                    | object    |
-| start_date_local              | object    |
-| utc_offset                    | float64   |
 | achievement_count             | int64     |
 | average_speed                 | float64   |
 | max_speed                     | float64   |
@@ -126,4 +125,22 @@ This is what the dataset looks like now:
 | elev_low                      | float64   |
 | pr_count                      | int64     |
 
+Next, I split the start_date column into two different columns:
+1. start_date
+2. start_time
+
+We then drop the original start_date column.
+
+```sql
+ALTER TABLE activities
+ADD COLUMN date DATE,
+ADD COLUMN time TIME;
+
+UPDATE activities
+SET date = SUBSTRING_INDEX(start_date, 'T', 1),
+    time = SUBSTRING_INDEX(SUBSTRING_INDEX(start_date, 'T', -1), 'Z', 1);
+    
+ALTER TABLE activities
+DROP COLUMN start_date;
+```
 
