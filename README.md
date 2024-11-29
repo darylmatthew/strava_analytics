@@ -107,7 +107,9 @@ DROP COLUMN `athlete.resource_state`,
 DROP COLUMN `map.id`,
 DROP COLUMN `map.summary_polyline`,
 DROP COLUMN `map.resource_state`,
-DROP COLUMN start_date_local;
+DROP COLUMN start_date_local,
+DROP COLUMN achievement_count;
+
 ```
 This is what the dataset looks like now:
 | Column                        | Dtype     |
@@ -118,7 +120,6 @@ This is what the dataset looks like now:
 | total_elevation_gain          | float64   |
 | type                          | object    |
 | start_date                    | object    |
-| achievement_count             | int64     |
 | average_speed                 | float64   |
 | max_speed                     | float64   |
 | elev_high                     | float64   |
