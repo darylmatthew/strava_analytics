@@ -5,7 +5,8 @@ Project Goals:
 1. Visualise my own performance
 2. Gather insights on training performance
 3. Predict my marathon pacing based on my historical data
-
+4. Find out when is the best time to train for me.
+5. Find out the amount of rest I should have between sessions.
    
 ## Data Source:
 Data collected from the offical Strava API, using my own account's physical activity data.
