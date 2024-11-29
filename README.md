@@ -2,11 +2,10 @@
 Personal project that takes real Strava data from my own physical activities for data analysis.
 
 Project Goals:
-1. Visualise my own performance
-2. Gather insights on training performance
-3. Predict my marathon pacing based on my historical data
-4. Find out when is the best time to train for me.
-5. Find out the amount of rest I should have between sessions.
+1. Predict marathon pacing based on historical data
+2. Find out when is the best time to train.
+3. Find optimum rest duration between sessions.
+4. Visualise overall performance.
    
 ## Data Source:
 Data collected from the offical Strava API, using my own account's physical activity data.
